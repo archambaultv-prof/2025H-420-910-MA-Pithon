@@ -1,38 +1,16 @@
-from pithon.syntax import PiAssignment, PiBinaryOperation, PiLiteral, PiSyntaxTree, PiVariable
+from pithon.syntax import (
+    PiAssignment, PiBinaryOperation, PiNumber, PiBool, PiValue, PiProgram, PiVariable,
+    PiIfThenElse, PiNot, PiAnd, PiOr, PiWhile, PiPrint, PiNone
+)
 
+def empty_env() -> list[tuple[str, PiValue]]:
+    return []
 
-def empty_env() -> dict[str, PiLiteral]:
-    return {}
+def lookup(env: list[tuple[str, PiValue]], name: str) -> PiValue:
+    pass
 
+def insert(env: list[tuple[str, PiValue]], name: str, value: PiValue) -> None:
+    pass
 
-def evaluate(node: PiSyntaxTree, env: dict[str, PiLiteral]) -> PiLiteral:
-    if isinstance(node, PiLiteral):
-        return node
-
-    elif isinstance(node, PiVariable):
-        if node.name not in env:
-            raise NameError(f"Variable '{node.name}' non définie.")
-        return env[node.name]
-
-    elif isinstance(node, PiBinaryOperation):
-        left = evaluate(node.left, env)
-        right = evaluate(node.right, env)
-
-        if node.operator == '+':
-            return PiLiteral(left.value + right.value)
-        elif node.operator == '-':
-            return PiLiteral(left.value - right.value)
-        elif node.operator == '*':
-            return PiLiteral(left.value * right.value)
-        elif node.operator == '/':
-            return PiLiteral(left.value / right.value)
-        else:
-            raise ValueError(f"Opérateur non supporté : {node.operator}")
-
-    elif isinstance(node, PiAssignment):
-        value = evaluate(node.value, env)
-        env[node.name] = value
-        return value
-
-    else:
-        raise TypeError(f"Type de nœud non supporté : {type(node)}")
+def evaluate(node: PiProgram, env: list[tuple[str, PiValue]]) -> PiValue:
+    pass
