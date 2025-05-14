@@ -11,7 +11,7 @@ def evaluate(node: PiSyntaxTree, env: dict[str, PiLiteral]) -> PiLiteral:
 
     elif isinstance(node, PiVariable):
         if node.name not in env:
-            raise NameError(f"Variable '{node.name}' is not defined.")
+            raise NameError(f"Variable '{node.name}' non définie.")
         return env[node.name]
 
     elif isinstance(node, PiBinaryOperation):
@@ -27,7 +27,7 @@ def evaluate(node: PiSyntaxTree, env: dict[str, PiLiteral]) -> PiLiteral:
         elif node.operator == '/':
             return PiLiteral(left.value / right.value)
         else:
-            raise ValueError(f"Unsupported operator: {node.operator}")
+            raise ValueError(f"Opérateur non supporté : {node.operator}")
 
     elif isinstance(node, PiAssignment):
         value = evaluate(node.value, env)
@@ -35,4 +35,4 @@ def evaluate(node: PiSyntaxTree, env: dict[str, PiLiteral]) -> PiLiteral:
         return value
 
     else:
-        raise TypeError(f"Unsupported node type: {type(node)}")
+        raise TypeError(f"Type de nœud non supporté : {type(node)}")
