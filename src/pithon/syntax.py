@@ -53,10 +53,58 @@ class PiWhile:
     body: list['PiStatement']
 
 @dataclass
-class PiPrint:
+class PiList:
+    elements: list['PiExpression']
+
+@dataclass
+class PiTuple:
+    elements: tuple['PiExpression', ...]
+
+@dataclass
+class PiString:
+    value: str
+
+@dataclass
+class PiFunctionDef:
+    name: str
+    arg_names: list[str]
+    vararg: str | None
+    body: list['PiStatement']
+
+@dataclass
+class PiFunctionCall:
+    function: 'PiExpression'
+    args: list['PiExpression']
+
+@dataclass
+class PiFor:
+    var: str
+    iterable: 'PiExpression'
+    body: list['PiStatement']
+
+@dataclass
+class PiBreak:
+    pass
+
+@dataclass
+class PiContinue:
+    pass
+
+@dataclass
+class PiIn:
+    element: 'PiExpression'
+    container: 'PiExpression'
+
+@dataclass
+class PiReturn:
     value: 'PiExpression'
 
-PiValue = PiNumber | PiBool | PiNone
+@dataclass
+class PiSubscript:
+    collection: 'PiExpression'
+    index: 'PiExpression'
+
+PiValue = PiNumber | PiBool | PiNone | PiList | PiTuple | PiString
 
 PiExpression = (
     PiValue
@@ -65,13 +113,20 @@ PiExpression = (
     | PiNot
     | PiAnd
     | PiOr
-    | PiPrint
+    | PiFunctionCall
+    | PiIn
+    | PiSubscript
 )
 
 PiStatement = (
     PiAssignment
     | PiIfThenElse
     | PiWhile
+    | PiFor
+    | PiBreak
+    | PiContinue
+    | PiFunctionDef
+    | PiReturn
     | PiExpression
 )
 
