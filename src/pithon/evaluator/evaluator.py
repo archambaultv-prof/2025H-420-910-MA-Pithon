@@ -1,4 +1,5 @@
 from typing import Any, Type, TypeVar
+from pithon.evaluator.envframe import EnvFrame
 from pithon.syntax import (
     PiAssignment, PiBinaryOperation, PiNumber, PiBool, PiStatement, PiProgram, PiVariable,
     PiIfThenElse, PiNot, PiAnd, PiOr, PiWhile, PiNone, PiList, PiTuple, PiString,
@@ -6,14 +7,15 @@ from pithon.syntax import (
 )
 from pithon.evaluator.envvalue import EnvValue, FunctionClosure
 
-def initial_env() -> list[tuple[str, EnvValue]]:
+
+def initial_env() -> EnvFrame:
     pass
 
-def lookup(env: list[tuple[str, EnvValue]], name: str) -> EnvValue:
+def lookup(env: EnvFrame, name: str) -> EnvValue:
     pass
 
-def insert(env: list[tuple[str, EnvValue]], name: str, value: EnvValue) -> None:
+def insert(env: EnvFrame, name: str, value: EnvValue) -> None:
     pass
 
-def evaluate(node: PiProgram, env: list[tuple[str, EnvValue]]) -> EnvValue:
+def evaluate(node: PiProgram, env: EnvFrame) -> EnvValue:
     pass
